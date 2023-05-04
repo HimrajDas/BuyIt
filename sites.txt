@@ -1,0 +1,12 @@
+--------> This page contains what sites are going to be scraped <---------
+
+1. PWSKILLS
+2. SKILLSHARE
+3. UDEMY
+4. COURSERA
+5. UDACITY
+6. FREECODECAMP
+7. LINKED LEARNING
+8. CODEACADEMY
+
+
