@@ -10,3 +10,8 @@
 8. CODEACADEMY
 
 
+
+---------------------------------INFO---------------------------------------
+
+skillshare search string = https://www.skillshare.com/en/search?query=
+udemy search string = https://www.udemy.com/courses/search/?src=ukw&q=
