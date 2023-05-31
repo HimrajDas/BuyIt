@@ -1,0 +1,30 @@
+--------> This page contains what sites are going to be scraped <---------
+
+1. PWSKILLS
+2. SKILLSHARE
+3. UDEMY
+4. COURSERA
+5. UDACITY
+6. FREECODECAMP
+7. LINKED LEARNING
+8. CODEACADEMY
+
+
+-------------------------- search strings -------------------------- 
+
+skillshare search string = https://www.skillshare.com/en/search?query=
+udemy search string = https://www.udemy.com/courses/search/?src=ukw&q=
+
+
+
+
+--------------------- what we need to scrape --------------------- 
+1. Name of the courses
+2. Rating
+3. Price
+4. Reviews
+
+
+
+-------------------- we gonna do sentiment analysis -----------------------
+
