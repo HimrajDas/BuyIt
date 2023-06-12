@@ -12,8 +12,13 @@ BOT_NAME = "coursescraper"
 SPIDER_MODULES = ["coursescraper.spiders"]
 NEWSPIDER_MODULE = "coursescraper.spiders"
 
+
 SCRAPEOPS_API_KEY = "0f1478a6-e418-4393-b9a9-dc3edf2c9689"
-SCRAPEOPS_PROXY_ENABLED = True
+SCRAPEOPS_FAKE_HEADERS_ENDPOINT = "https://headers.scrapeops.io/v1/browser-headers"
+SCRAPEOPS_FAKE_USER_AGENT_ENDPOINT = "https://headers.scrapeops.io/v1/user-agents"
+# SCRAPEOPS_PROXY_ENABLED = True
+SCRAPEOPS_FAKE_HEADERS_ENABLED = True
+SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -23,12 +28,6 @@ SCRAPEOPS_PROXY_ENABLED = True
 ROBOTSTXT_OBEY = False
 
 
-DOWNLOAD_HANDLERS = {
-    "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
-    "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
-}
-
-TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -63,7 +62,9 @@ TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
    # "coursescraper.middlewares.CoursescraperDownloaderMiddleware": 543,
-   "scrapeops_scrapy_proxy_sdk.scrapeops_scrapy_proxy_sdk.ScrapeOpsScrapyProxySdk": 725,
+   'coursescraper.middlewares.ScrapeOpsFakeBrowserHeadersMiddleware': 400,
+   'coursescraper.middlewares.ScrapeOpsFakeUserAgentMiddleware': 420,
+   # "scrapeops_scrapy_proxy_sdk.scrapeops_scrapy_proxy_sdk.ScrapeOpsScrapyProxySdk": 725,
 }
 
 # Enable or disable extensions

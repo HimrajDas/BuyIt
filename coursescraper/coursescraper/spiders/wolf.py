@@ -1,58 +1,38 @@
 import scrapy
-import logging
-# from scrapy import signals
-# from scrapy.http import HtmlResponse
-# from selenium import webdriver
-# from selenium.webdriver.chrome.service import Service
-# from selenium.webdriver.common.by import By
-# from selenium.webdriver.support.ui import WebDriverWait
-# from selenium.webdriver.support import expected_conditions as EC
-# from scrapy_playwright.page import PageMethod
+from urllib.parse import urlencode
 
 
-# PATH = "C:\Program Files (x86)\chromedriver.exe"
+SCRAPEOPS_API_KEY = "0f1478a6-e418-4393-b9a9-dc3edf2c9689"
+
+def get_scrapeops_url(url):
+    payload = {
+        "api_key": SCRAPEOPS_API_KEY,
+        "url": url,
+        "bypass": "cloudflare",
+        "render_js": True,
+    }
+
+    proxy_url = "https://proxy.scrapeops.io/v1/?" + urlencode(payload)
+    return proxy_url
+
+
+# add 'render_js': True in the payload if above code deosn't work.
 
 
 class WolfSpider(scrapy.Spider):
     name = "wolf"
-    # allowed_domains = ["udemy.com"]
-    # start_urls = ["https://www.udemy.com/courses/search/?src=ukw&q=machine+learning"]
 
-
-    # @classmethod
-    # def from_crawler(cls, crawler, *args, **kwargs):
-    #     spider = super(WolfSpider, cls).from_crawler(crawler, *args, **kwargs)
-    #     crawler.signals.connect(spider.spider_closed, signal=signals.spider_closed)
-    #     return spider
-    
-
-    # def __init__(self, *args, **kwargs):
-    #     self.driver = webdriver.Chrome(service=Service(PATH))
-    #     super(WolfSpider, self).__init__(*args, **kwargs)
-
-    
-    # def spider_closed(self, spider):
-    #     self.driver.quit()
-
-
-
-    
-
-
+    def start_requests(self):
+        urls = ["https://www.udemy.com/courses/search/?src=ukw&q=machine+learning"]
+        for url in urls:
+            yield scrapy.Request(url=get_scrapeops_url(url), callback=self.parse)
 
 
     def parse(self, response):
-        course_titles = response.css(".course-card--course-title--vVEjC a::text").getall()
-        for title in course_titles:
-            self.logger.info("Course Title: %s", title)
+        course_title = response.css(".course-card--course-title--vVEjC a::text").getall()
+        for title in course_title:
+            yield {
+                "course_title": title
+            }
 
-
-
-
-# set up logging
-logging.basicConfig(
-    filename="scrapy.log",
-    format="%(asctime)s [%(name)s] %(levelname)s: %(message)s",
-    level=logging.INFO
-)
 
