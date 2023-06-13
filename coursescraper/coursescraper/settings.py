@@ -12,6 +12,9 @@ BOT_NAME = "coursescraper"
 SPIDER_MODULES = ["coursescraper.spiders"]
 NEWSPIDER_MODULE = "coursescraper.spiders"
 
+FEEDS = {
+    "data.json": {"format": "json"}
+}
 
 SCRAPEOPS_API_KEY = "0f1478a6-e418-4393-b9a9-dc3edf2c9689"
 SCRAPEOPS_FAKE_HEADERS_ENDPOINT = "https://headers.scrapeops.io/v1/browser-headers"

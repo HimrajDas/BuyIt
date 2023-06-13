@@ -22,6 +22,14 @@ def get_scrapeops_url(url):
 class WolfSpider(scrapy.Spider):
     name = "wolf"
 
+    custom_setting = {
+        "FEEDS": {
+            "data.json": {"format": "json", "overwrite": True}
+        } 
+    }
+
+    
+
     def start_requests(self):
         urls = ["https://www.udemy.com/courses/search/?src=ukw&q=machine+learning"]
         for url in urls:
@@ -29,10 +37,26 @@ class WolfSpider(scrapy.Spider):
 
 
     def parse(self, response):
-        course_title = response.css(".course-card--course-title--vVEjC a::text").getall()
-        for title in course_title:
-            yield {
-                "course_title": title
-            }
+        courses = response.css("div.course-card--main-content--2XqiY.course-card--has-price-text--1c0ze")
+        for course in courses:
+            relative_url = course.css("h3 a ::attr(href)").get()
+            course_url = "https://udemy.com" + relative_url
+            yield scrapy.Request(course_url, callback=self.parse_course_page)
+
+
+        next_page = response.css("div.pagination-module--container--1Dmb0 a:last-child::attr(href)").get()
+        if next_page is not None:
+            next_page_url = "https://udemy.com" + next_page
+            yield scrapy.Request(next_page_url, callback=self.parse)
+
+
+
+
+    def parse_course_page(self, response):
+        pass
+
+
+
+
 
 
