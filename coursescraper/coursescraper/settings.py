@@ -67,14 +67,17 @@ DOWNLOADER_MIDDLEWARES = {
    # "coursescraper.middlewares.CoursescraperDownloaderMiddleware": 543,
    'coursescraper.middlewares.ScrapeOpsFakeBrowserHeadersMiddleware': 400,
    'coursescraper.middlewares.ScrapeOpsFakeUserAgentMiddleware': 420,
+   'scrapeops_scrapy.middleware.retry.RetryMiddleware': 550,
+   'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
    # "scrapeops_scrapy_proxy_sdk.scrapeops_scrapy_proxy_sdk.ScrapeOpsScrapyProxySdk": 725,
 }
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
-#EXTENSIONS = {
-#    "scrapy.extensions.telnet.TelnetConsole": None,
-#}
+EXTENSIONS = {
+   # "scrapy.extensions.telnet.TelnetConsole": None,
+   'scrapeops_scrapy.extension.ScrapeOpsMonitor': 500, 
+}
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
